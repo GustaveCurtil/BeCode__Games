@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
-    <title>Document</title>
+    <title>Memory Game</title>
 </head>
-<body>
+<body onload="startGame()">
     <div class="wrapper">
         <div class="header">
             <div class="difficulty">
@@ -25,9 +25,13 @@
             
         </div>
     
-        <div class="high-scores">
-            high score:
-        </div>
+        <form class="highscore">
+            <p>your high scores</p>
+            <input placeholder="name">
+            <p>easy : <span class="easy-score">∞</span><button>save</button></p>
+            <p>medium : <span class="medium-score">∞</span><button>save</button></p>
+            <p>hard : <span class="hard-score">∞</span><button>save</button></p>
+        </form>
     </div>
 </body>
 </html>

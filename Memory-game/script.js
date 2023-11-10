@@ -37,17 +37,23 @@ buttons.forEach(element => {
 });
 
 
+
 //shuffle the albums + make array depending on gameType and double it
 const playButton = document.querySelector(".play button");
 let gameAlbums = []
 
 playButton.addEventListener("click", (e)=>{
+    startGame()
+})
+
+//spel begint
+function startGame() {
     shuffleArray(albumCovers);
     makeGameAlbums(gameType)
     shuffleArray(gameAlbums)
     createCards();
     turnCard();
-})
+}
 
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -58,6 +64,7 @@ function shuffleArray(array) {
     }
 }
 
+//maak aantal kaarten aan naargelang de moeilijkheidsgraad (input zijn aantal kaarten)
 function makeGameAlbums(cards) {
     gameAlbums=[]
     for (let i = 0; i < cards; i++) {
@@ -67,6 +74,7 @@ function makeGameAlbums(cards) {
     return gameAlbums
 }
 
+//maak de tegels aan
 function createCards() {
     const frame = document.querySelector(".frame");
     let gridNumber = Math.sqrt(gameAlbums.length);
@@ -97,6 +105,7 @@ function createCards() {
 function turnCard() {
     let tries = 0
     const displayScore = document.querySelector(".score div")
+    displayScore.innerHTML=tries;
     let hasFlippedCard = false;
     let card = document.querySelectorAll(".card");
     let foundCards = []
@@ -130,6 +139,7 @@ function turnCard() {
                 }  
                 if (foundCards.length==card.length) {
                     console.log("you won")
+                    highscoreChecker(tries, gameType)
                 }
             }   
         });
@@ -146,8 +156,30 @@ function removePreviousCards(weg) {
     });
 }
 
-// 1. draai 1 om. en blijf.
-// 2. Draai 2de om en blijf. 
-// 3. Draai 3de om en draai 2 voorgaande om. Indien ze wel hetzelfde zijn. Blijven ze.
 
-// Je kan niet drukken op een album die getoond is.
+//highscore displayen beneden
+let highscore = {
+    'easy': 1000, 
+    'medium': 1000, 
+    'hard': 1000,
+};
+
+function highscoreChecker(score, gametype) {
+
+    
+    if (gametype==8 && highscore['easy']>score) {
+        highscore['easy']=score
+        document.querySelector('.easy-score').innerHTML=highscore['easy']
+    } 
+    if (gametype==18 && highscore['medium']>score) {
+        highscore['medium']=score
+        document.querySelector('.medium-score').innerHTML=highscore['medium']
+    }
+    if (gametype==24 && highscore['hard']>score) {
+        highscore['hard']=score
+        document.querySelector('.hard-score').innerHTML=highscore['hard']
+    }
+}
+
+//highscores opslaan
+

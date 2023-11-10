@@ -1,37 +1,40 @@
 * {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 :root {
     --main-color: rgb(45, 102, 64);
+    --background-color: rgb(229, 173, 224);
   }
 
 
 body {
     width: 100vw;
-    margin-top: 10px;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: white;
+
 }
 
 .wrapper {
     width: 100%;
-    max-width: 600px; 
+    max-width: 800px; 
     display: flex;
     flex-wrap: wrap;
-    box-sizing: border-box;
-    border: 1px solid var(--main-color)
+    background-color: white;
+    border: solid 2px var(--main-color);
 }
 
 .header {
     width: 100%;
+    height: 25px;
     display: flex;
     flex-wrap: wrap;
-    border-color: var(--main-color);
-    border-style: solid;
-    border-width: 1px 1px 1px 2px;
 }
 
 .difficulty {
@@ -46,6 +49,7 @@ body {
     border-width: 0px 2px 0px 0px;
     cursor: pointer;
     background-color: white;
+    color: black;
 }
 
 .difficulty button:first-child {
@@ -65,6 +69,7 @@ body {
     border-width: 0px 2px 0px 0px;
     cursor: pointer;
     background-color: white;
+    color: black;
 }
 
 .score {
@@ -87,15 +92,16 @@ body {
 .frame {
     width: 100%;
     aspect-ratio: 1/1;
-    background-color: var(--main-color);
+    background-color: var(--background-color);
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-
+    box-sizing: border-box;
 }
 
 .card {
     width: 100%;
+    cursor: pointer;
 }
 
 img {
@@ -111,5 +117,74 @@ img {
     border: 1px solid var(--main-color);
     background-color: rgb(229, 173, 224);
     box-sizing: border-box;
-
 }
+
+.highscore {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    color: rgb(0, 0, 0);
+}
+
+
+
+.highscore p, input {
+    width: 20%;
+    border: 0;
+}
+
+.highscore input {
+    height: 28px;
+    padding-left: 5px;
+    border: 1px solid var(--main-color);
+}
+
+.highscore p {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 30px;
+}
+
+.highscore button {
+    cursor: pointer;
+    background-color: var(--main-color);
+    color: white;
+    height: 30px;
+    font-weight: 600;
+    border: none;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+.highscore p:first-child {
+    border: 0;
+    justify-content: center;
+    font-weight: 900;
+}
+
+@media screen and (max-width:650px) {
+    body {
+        justify-content: start;
+        background-color: white;
+    }
+
+    .wrapper {
+        border: 0px;
+    }
+    .highscore  {
+        flex-direction:column;
+        width: 100%;
+        height: auto;
+        align-items: center;
+    }
+
+    .highscore p, input {
+        justify-content: space-between;
+        width: 50%;
+        border: 0;
+    }
+}
+    
