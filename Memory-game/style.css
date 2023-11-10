@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --main-color: rgb(45, 102, 64);
+  }
+
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 600px; 
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    border-color: var(--main-color);
+    border-style: solid;
+    border-width: 2px 2px 0px 2px;
+}
+
+.difficulty {
+    width: 50%;
+}
+
+.difficulty button {
+    width: 33.33%;
+    height: 25px;
+    border-color: var(--main-color);
+    border-style: solid;
+    border-width: 0px 2px 0px 0px;
+    cursor: pointer;
+}
+
+.play {
+    width: 30%;
+}
+
+.play button {
+    width: 100%;
+    height: 25px;
+    border-color: var(--main-color);
+    border-style: solid;
+    border-width: 0px 2px 0px 0px;
+    cursor: pointer;
+}
+
+.score {
+    width: 20%; 
+    height: 25px;
+    text-align: center;
+    font-size: 13.3333px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: normal;
+    display: flex; /* Add display: flex; */
+    align-items: center; 
+    justify-content: end;
+}
+
+.score div {
+    width: 50%;
+}
+
+
+.frame {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: var(--main-color);
+}
+
