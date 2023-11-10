@@ -27,7 +27,7 @@ let buttons = document.querySelectorAll(".difficulty button");
 buttons.forEach(element => {
     element.addEventListener("click", (e) => {
         buttons.forEach(element => {
-            element.style.removeProperty("background-color");
+            element.style.backgroundColor = 'white'
             element.style.color = "black";
         });
         e.target.style.backgroundColor = 'var(--main-color)';
@@ -96,41 +96,41 @@ function createCards() {
 //klicking on backside makes card turn over.
 function turnCard() {
     let tries = 0
+    const displayScore = document.querySelector(".score div")
     let hasFlippedCard = false;
     let card = document.querySelectorAll(".card");
     let foundCards = []
     let firstCard
     let secondCard 
+ 
     card.forEach(element => {
         let cardAlbum = element.children[0]
         let cardBack = element.children[1]
-
-
-        
-        element.addEventListener("click", (e)=> {
-            
-            foundCards.forEach(found => {
-                found.children[0].style.display = "block";
-                found.children[1].style.display = "none"; 
-            });
-
+        element.addEventListener("click", (e)=> {    
             if (cardBack.style.display == 'block' && hasFlippedCard==false) {
                 secondCard = 1
-                firstCard = cardAlbum
+                firstCard = [cardAlbum, cardBack]
                 removePreviousCards(card)
+                foundCards.forEach(found => {
+                    found[0].style.display = "block"
+                    found[1].style.display = "none"
+                });
                 hasFlippedCard = true;
                 cardAlbum.style.display = "block"
                 cardBack.style.display = "none"
             } if (cardBack.style.display == 'block' && hasFlippedCard==true) {
-                secondCard = cardAlbum
+                secondCard = [cardAlbum, cardBack]
                 hasFlippedCard=false;
                 tries += 1;
+                displayScore.innerHTML=tries;
                 cardAlbum.style.display = "block"
-                cardBack.style.display = "none"
-                if (secondCard.src===firstCard.src) {
+                cardBack.style.display = "none";
+                if (secondCard[0].src===firstCard[0].src) {
                     foundCards.push(firstCard, secondCard)
-
                 }  
+                if (foundCards.length==card.length) {
+                    console.log("you won")
+                }
             }   
         });
     })

@@ -10,6 +10,7 @@
 
 body {
     width: 100vw;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,6 +45,12 @@ body {
     border-style: solid;
     border-width: 0px 2px 0px 0px;
     cursor: pointer;
+    background-color: white;
+}
+
+.difficulty button:first-child {
+    background-color: var(--main-color);
+    color: white;
 }
 
 .play {
@@ -57,6 +64,7 @@ body {
     border-style: solid;
     border-width: 0px 2px 0px 0px;
     cursor: pointer;
+    background-color: white;
 }
 
 .score {
