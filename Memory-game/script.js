@@ -2,9 +2,6 @@ const albumCovers = ['albums/Air - Talkie Walkie.jpg', 'albums/Alfa Mist - Antip
 
 // 1.kies een moeilijkheid en druk op Spelen -> spel wordt gegenereerd.
 
-// let easyGame = 8 (4x4)
-// let mediumGame = 18 (6x6)
-// let hardGame = 24 (8x8)
 
 // kies spel
 // bij 'klick' op spelen, doe hetvolgende ->
@@ -17,3 +14,140 @@ const albumCovers = ['albums/Air - Talkie Walkie.jpg', 'albums/Alfa Mist - Antip
 //         2. Bepaal de breedte (in precentage) naargelang het aantal kaarten (simpele berekening) 
 //     });
 
+//check game type + display
+let difficulties = {
+    'easy': 8, 
+    'medium': 18, 
+    'hard': 32,
+};
+
+gameType = difficulties['easy'] //wegdoen?
+let buttons = document.querySelectorAll(".difficulty button");
+
+buttons.forEach(element => {
+    element.addEventListener("click", (e) => {
+        buttons.forEach(element => {
+            element.style.removeProperty("background-color");
+            element.style.color = "black";
+        });
+        e.target.style.backgroundColor = 'var(--main-color)';
+        e.target.style.color = 'white';
+        gameType = difficulties[element.innerHTML.toLowerCase()];
+})
+});
+
+
+//shuffle the albums + make array depending on gameType and double it
+const playButton = document.querySelector(".play button");
+let gameAlbums = []
+
+playButton.addEventListener("click", (e)=>{
+    shuffleArray(albumCovers);
+    makeGameAlbums(gameType)
+    shuffleArray(gameAlbums)
+    createCards();
+    turnCard();
+})
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+function makeGameAlbums(cards) {
+    gameAlbums=[]
+    for (let i = 0; i < cards; i++) {
+        gameAlbums.push(albumCovers[i])
+        gameAlbums.push(albumCovers[i])
+    }
+    return gameAlbums
+}
+
+function createCards() {
+    const frame = document.querySelector(".frame");
+    let gridNumber = Math.sqrt(gameAlbums.length);
+    frame.style.gridTemplateColumns = "1fr ".repeat(gridNumber);
+    frame.style.gridTemplateRows = "1fr ".repeat(gridNumber);
+    frame.innerHTML="";
+    gameAlbums.forEach(element => {
+
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const albumCover = document.createElement("img");
+        albumCover.src = element;
+
+        const backside = document.createElement("div");
+        backside.className = "backside";
+        backside.style.display= "block";
+
+        card.appendChild(albumCover);
+        card.appendChild(backside);
+
+        frame.appendChild(card); 
+    });
+}
+
+
+//klicking on backside makes card turn over.
+function turnCard() {
+    let tries = 0
+    let hasFlippedCard = false;
+    let card = document.querySelectorAll(".card");
+    let foundCards = []
+    let firstCard
+    let secondCard 
+    card.forEach(element => {
+        let cardAlbum = element.children[0]
+        let cardBack = element.children[1]
+
+
+        
+        element.addEventListener("click", (e)=> {
+            
+            foundCards.forEach(found => {
+                found.children[0].style.display = "block";
+                found.children[1].style.display = "none"; 
+            });
+
+            if (cardBack.style.display == 'block' && hasFlippedCard==false) {
+                secondCard = 1
+                firstCard = cardAlbum
+                removePreviousCards(card)
+                hasFlippedCard = true;
+                cardAlbum.style.display = "block"
+                cardBack.style.display = "none"
+            } if (cardBack.style.display == 'block' && hasFlippedCard==true) {
+                secondCard = cardAlbum
+                hasFlippedCard=false;
+                tries += 1;
+                cardAlbum.style.display = "block"
+                cardBack.style.display = "none"
+                if (secondCard.src===firstCard.src) {
+                    foundCards.push(firstCard, secondCard)
+
+                }  
+            }   
+        });
+    })
+}
+
+function removePreviousCards(weg) {
+    weg.forEach(element => {     
+        let cardAlbum = element.children[0]
+        let cardBack = element.children[1]
+        cardAlbum.style.display = "none"
+        cardBack.style.display = "block"
+        
+    });
+}
+
+// 1. draai 1 om. en blijf.
+// 2. Draai 2de om en blijf. 
+// 3. Draai 3de om en draai 2 voorgaande om. Indien ze wel hetzelfde zijn. Blijven ze.
+
+// Je kan niet drukken op een album die getoond is.
