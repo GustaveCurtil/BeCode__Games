@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
+    <script src="index.js" defer type="module" ></script>
     <title>Memory Game</title>
 </head>
 <body onload="startGame()">
@@ -25,13 +26,24 @@
             
         </div>
     
-        <form class="highscore">
+        <dic class="highscore">
             <p>your high scores</p>
-            <input placeholder="name">
-            <p>easy : <span class="easy-score">∞</span><button>save</button></p>
-            <p>medium : <span class="medium-score">∞</span><button>save</button></p>
-            <p>hard : <span class="hard-score">∞</span><button>save</button></p>
-        </form>
+            <input placeholder="name" type="text" name="name">
+            <p>easy : <span class="easy-score">∞</span><button id="save-easy">save</button></p>
+            <p>medium : <span class="medium-score">∞</span><button id="save-medium">save</button></p>
+            <p>hard : <span class="hard-score">∞</span><button id="save-hard">save</button></p>
+        </div>
+        <div class="global-highscores">
+            <div class="highscore-easy">
+            <p>easy</p>
+            </div>
+            <div class="highscore-medium">
+            <p>medium</p>
+            </div>
+            <div class="highscore-hard">
+            <p>hard</p>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -9,6 +9,21 @@
     --background-color: rgb(229, 173, 224);
   }
 
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, .05);
+    -webkit-border-radius: 20px;
+    border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 20px;
+    border-radius: 0px;
+    background: var(--main-color);
+}  
 
 body {
     width: 100vw;
@@ -23,7 +38,7 @@ body {
 
 .wrapper {
     width: 100%;
-    max-width: 800px; 
+    max-width: 650px; 
     display: flex;
     flex-wrap: wrap;
     background-color: white;
@@ -137,8 +152,9 @@ img {
 
 .highscore input {
     height: 28px;
-    padding-left: 5px;
     border: 1px solid var(--main-color);
+    box-sizing: border-box;
+    padding-left: 5px;
 }
 
 .highscore p {
@@ -156,6 +172,7 @@ img {
     font-weight: 600;
     border: none;
     padding: 4px;
+    margin-left: 4px;
     box-sizing: border-box;
 }
 
@@ -164,6 +181,43 @@ img {
     justify-content: center;
     font-weight: 900;
 }
+
+.global-highscores {
+    width: 100%;
+    max-width: 650px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: 1px solid var(--main-color);
+    border-top: 0;
+    box-sizing: border-box;
+}
+
+.global-highscores div {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid var(--main-color);
+    box-sizing: border-box;
+}
+
+.highscore-easy p, .highscore-medium p, .highscore-hard p {
+    width: 100%;
+    text-align: center;
+}
+
+.highscore-easy, .highscore-medium, .highscore-hard {
+    align-content: flex-start
+}
+
+.highscore-name, .highscore-score {
+    width: 50%;
+    border: 0!important;
+    padding: 0 10px;
+}
+
+.highscore-score {
+    justify-content: right;
+}
+
 
 @media screen and (max-width:650px) {
     body {
@@ -181,10 +235,23 @@ img {
         align-items: center;
     }
 
-    .highscore p, input {
+    .highscore p {
         justify-content: space-between;
-        width: 50%;
+        width: 100%;
         border: 0;
     }
+
+    input {
+        width: 50%;
+    }
+    
+    .global-highscores {
+        margin-top: 20px;
+    }
+
+    .global-highscores, .global-highscores div {
+        border: 0; 
+    }
+    
 }
     

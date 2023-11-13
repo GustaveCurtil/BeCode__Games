@@ -42,7 +42,13 @@ buttons.forEach(element => {
 const playButton = document.querySelector(".play button");
 let gameAlbums = []
 
+let score = 0
+let everySecond
+
 playButton.addEventListener("click", (e)=>{
+    const displayScore = document.querySelector(".score div")
+    displayScore.innerHTML=0
+    score = 0
     startGame()
 })
 
@@ -100,24 +106,41 @@ function createCards() {
     });
 }
 
-
 //klicking on backside makes card turn over.
 function turnCard() {
-    let tries = 0
+    score = 0
+    console.log(everySecond)
+    clearInterval(everySecond)
+    const frame = document.querySelector(".frame");
+    frame.addEventListener("click", (e) =>{
+        if (secondCard===0 && hasFlippedCard && score==0) {
+            score=0
+            everySecond = setInterval(adjustScore , 1000)
+            console.log(everySecond)
+        } if (foundCards.length==card.length) {
+            clearInterval(everySecond)
+        }
+    })
     const displayScore = document.querySelector(".score div")
-    displayScore.innerHTML=tries;
+
+    function adjustScore() {
+        score+= 1
+        displayScore.innerHTML=score;
+    };
+
     let hasFlippedCard = false;
     let card = document.querySelectorAll(".card");
     let foundCards = []
-    let firstCard
-    let secondCard 
- 
+    let firstCard = 0
+    let secondCard = 0
+
+     
+
     card.forEach(element => {
         let cardAlbum = element.children[0]
         let cardBack = element.children[1]
         element.addEventListener("click", (e)=> {    
             if (cardBack.style.display == 'block' && hasFlippedCard==false) {
-                secondCard = 1
                 firstCard = [cardAlbum, cardBack]
                 removePreviousCards(card)
                 foundCards.forEach(found => {
@@ -130,21 +153,23 @@ function turnCard() {
             } if (cardBack.style.display == 'block' && hasFlippedCard==true) {
                 secondCard = [cardAlbum, cardBack]
                 hasFlippedCard=false;
-                tries += 1;
-                displayScore.innerHTML=tries;
+                score += 5;
+                displayScore.innerHTML=score;
                 cardAlbum.style.display = "block"
                 cardBack.style.display = "none";
                 if (secondCard[0].src===firstCard[0].src) {
                     foundCards.push(firstCard, secondCard)
                 }  
                 if (foundCards.length==card.length) {
+                    clearInterval(everySecond)
                     console.log("you won")
-                    highscoreChecker(tries, gameType)
+                    highscoreChecker(score, gameType)
                 }
             }   
         });
     })
 }
+
 
 function removePreviousCards(weg) {
     weg.forEach(element => {     
@@ -164,22 +189,19 @@ let highscore = {
     'hard': 1000,
 };
 
-function highscoreChecker(score, gametype) {
-
-    
-    if (gametype==8 && highscore['easy']>score) {
+function highscoreChecker(score, gametype) { 
+    if (gameAlbums.length==16 && highscore['easy']>score) {
         highscore['easy']=score
         document.querySelector('.easy-score').innerHTML=highscore['easy']
     } 
-    if (gametype==18 && highscore['medium']>score) {
+    if (gameAlbums.length==36 && highscore['medium']>score) {
         highscore['medium']=score
         document.querySelector('.medium-score').innerHTML=highscore['medium']
     }
-    if (gametype==24 && highscore['hard']>score) {
+    if (gameAlbums.length==64 && highscore['hard']>score) {
         highscore['hard']=score
         document.querySelector('.hard-score').innerHTML=highscore['hard']
     }
 }
 
 //highscores opslaan
-
